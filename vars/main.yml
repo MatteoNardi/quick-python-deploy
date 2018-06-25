@@ -1,0 +1,4 @@
+---
+# vars file for quick-python-deploy
+app_name: 
+dest_folder: '/opt/{{ app_name }}/'

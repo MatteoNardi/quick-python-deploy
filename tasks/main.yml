@@ -1,0 +1,43 @@
+---
+# tasks file for quick-python-deploy
+- name: Check installed version
+  stat:
+    path: '{{ dest_folder }}/setup.py'
+  register:
+    old_setup
+
+- name: Sync code
+  synchronize:
+    src: '{{ playbook_dir }}/..'
+    dest: '{{ dest_folder }}'
+    rsync_opts:
+      - "--exclude=.git"
+      - "--exclude=automation"
+      - "--exclude-from={{ playbook_dir }}/../.gitignore"
+  register:
+    rsync_output
+
+- debug:
+    var: rsync_output.stdout_lines
+  when: rsync_output.changed
+
+- name: Check if pip update required
+  stat:
+    path: '{{ dest_folder }}/setup.py'
+  register:
+    new_setup
+
+- name: Update virtual environment
+  block:
+    - name: Install python3-venv
+      apt:
+        name: python3-venv
+        state: present
+
+    - name: Setup venv in /opt
+      pip:
+        name: '{{ dest_folder }}'
+        virtualenv: /opt/.env
+        virtualenv_command: "/usr/bin/python3 -m venv"
+        editable: true
+  when: old_setup != new_setup
