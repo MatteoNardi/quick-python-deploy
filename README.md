@@ -31,3 +31,14 @@ License
 
 BSD
 
+Installation
+------------
+
+Due to the bad quality of this, I'll not publish it on Galaxy. You can install it by creating a `requirements.yml` file and running `ansible-galaxy install -r requirements.yml`
+
+```yaml
+- src: https://github.com/MatteoNardi/quick-python-deploy.git
+  version: master
+  name: MatteoNardi.quick-python-deploy
+```
+
