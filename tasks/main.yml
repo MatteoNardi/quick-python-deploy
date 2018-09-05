@@ -14,6 +14,7 @@
       - "--exclude=.git"
       - "--exclude=automation"
       - "--exclude-from={{ playbook_dir }}/../.gitignore"
+      - "--exclude-from={{ playbook_dir }}/../.extra_exclude"
   register:
     rsync_output
 

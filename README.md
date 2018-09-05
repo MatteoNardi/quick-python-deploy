@@ -26,6 +26,13 @@ Including an example of how to use your role (for instance, with variables passe
       roles:
          - { role: username.rolename, x: 42 }
 
+
+Excluded folders
+----------------
+
+You can exclude files from the initial rsync by putting them in a `.extra_exclude` file
+in the parent directory of the `automation` folder.
+
 License
 -------
 
